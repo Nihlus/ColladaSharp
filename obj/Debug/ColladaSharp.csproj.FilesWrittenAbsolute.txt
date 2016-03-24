@@ -1,5 +1,0 @@
-/home/jarl/Programming/ColladaSharp/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
-/home/jarl/Programming/ColladaSharp/bin/Debug/ColladaSharp.dll.mdb
-/home/jarl/Programming/ColladaSharp/bin/Debug/ColladaSharp.dll
-/home/jarl/Programming/ColladaSharp/obj/Debug/ColladaSharp.dll
-/home/jarl/Programming/ColladaSharp/obj/Debug/ColladaSharp.dll.mdb
