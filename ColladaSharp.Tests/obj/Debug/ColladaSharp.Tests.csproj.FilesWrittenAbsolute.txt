@@ -1,0 +1,8 @@
+/home/jarl/Programming/ColladaSharp/ColladaSharp.Tests/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/jarl/Programming/ColladaSharp/ColladaSharp.Tests/bin/Debug/ColladaSharp.dll
+/home/jarl/Programming/ColladaSharp/ColladaSharp.Tests/bin/Debug/ColladaSharp.dll.mdb
+/home/jarl/Programming/ColladaSharp/ColladaSharp.Tests/bin/Debug/ColladaSharp.xml
+/home/jarl/Programming/ColladaSharp/ColladaSharp.Tests/bin/Debug/ColladaSharp.Tests.exe.mdb
+/home/jarl/Programming/ColladaSharp/ColladaSharp.Tests/bin/Debug/ColladaSharp.Tests.exe
+/home/jarl/Programming/ColladaSharp/ColladaSharp.Tests/obj/Debug/ColladaSharp.Tests.exe
+/home/jarl/Programming/ColladaSharp/ColladaSharp.Tests/obj/Debug/ColladaSharp.Tests.exe.mdb

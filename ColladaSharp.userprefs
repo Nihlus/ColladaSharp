@@ -1,0 +1,18 @@
+﻿<Properties StartupItem="ColladaSharp.Tests/ColladaSharp.Tests.csproj" RefactoringSettings.EnableRefactorings="True">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ColladaSharp.Tests/Program.cs">
+    <Files>
+      <File FileName="Collada/Chunks/Asset.cs" Line="65" Column="3" />
+      <File FileName="Common/Extensions.cs" Line="65" Column="64" />
+      <File FileName="Collada/Elements/Asset/AssetSceneUnit.cs" Line="43" Column="19" />
+      <File FileName="Common/Enums.cs" Line="43" Column="19" />
+      <File FileName="ColladaSharp.Tests/Program.cs" Line="36" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/home/jarl/Programming/ColladaSharp/ColladaSharp.Tests/Program.cs" line="34" column="11" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
