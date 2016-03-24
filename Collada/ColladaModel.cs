@@ -20,6 +20,10 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
+using System.Xml.Linq;
+using ColladaSharp.Collada.Chunks;
+using System.Collections.Generic;
+using ColladaSharp.Collada.Elements;
 
 namespace ColladaSharp.Collada
 {
@@ -28,11 +32,40 @@ namespace ColladaSharp.Collada
 	/// </summary>
 	public class ColladaModel
 	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ColladaSharp.Collada.ColladaModel"/> class.
-		/// </summary>
-		public ColladaModel()
-		{
+		public readonly Version ColladaVersion = new Version("1.5.0");
+		public static readonly string XMLNS = "https://www.khronos.org/files/collada_schema_1_5";
+		public static readonly string XMLBase = "https://www.w3.org/TR/xmlbase/";
+
+		public ColladaAsset Asset = new ColladaAsset();
+		public List<ColladaLibrary> Libraries = new List<ColladaLibrary>();
+		public ColladaScene Scene = new ColladaScene();
+
+		public XDocument GetXML()
+		{			
+			XElement RootElement = ColladaXElementFactory.CreateElement("COLLADA");
+			RootElement.SetAttributeValue("version", ColladaVersion);
+			RootElement.SetAttributeValue("base", XMLBase);
+
+			if (!Asset.GetXML().IsEmpty)
+			{
+				RootElement.Add(Asset.GetXML());
+			}
+
+			foreach (ColladaLibrary Library in Libraries)
+			{
+				if (!Library.GetXML().IsEmpty)
+				{
+					RootElement.Add(Library.GetXML());
+				}
+			}
+
+			if (!Scene.GetXML().IsEmpty)
+			{
+				RootElement.Add(Scene.GetXML());
+			}
+
+			XDocument document = new XDocument(RootElement);
+			return document;
 		}
 	}
 }

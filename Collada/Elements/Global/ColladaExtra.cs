@@ -26,9 +26,9 @@ using System.Xml.Linq;
 
 namespace ColladaSharp.Collada.Elements.Global
 {
-	public class ColladaExtra : ColladaElement
+	public class ColladaExtra
 	{
-		public List<Chunks.Asset> Assets = new List<Chunks.Asset>();
+		public List<Chunks.ColladaAsset> Assets = new List<Chunks.ColladaAsset>();
 		public List<ColladaTechnique> Techniques = new List<ColladaTechnique>();
 
 		public ColladaExtra()
@@ -38,7 +38,7 @@ namespace ColladaSharp.Collada.Elements.Global
 		// TODO: Implement
 		public XElement GetXML()
 		{
-			return new XElement("extra");
+			return ColladaXElementFactory.CreateElement("extra");
 		}
 	}
 }

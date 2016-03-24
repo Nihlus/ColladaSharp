@@ -22,6 +22,7 @@
 using System;
 using System.Xml.Linq;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace ColladaSharp.Common
 {
@@ -67,6 +68,32 @@ namespace ColladaSharp.Common
 						throw new NotImplementedException("Invalid axis value.");
 					}
 			}
+		}
+
+		public static string ToFriendlyName(this LibraryType libraryType)
+		{
+			string baseName = libraryType.ToString();
+
+			// Walk through the string and find all of the capital characters
+			List<int> capitalIndexes = new List<int>();
+			for (int i = 0; i < baseName.Length; ++i)
+			{
+				if (char.IsUpper(baseName[i]))
+				{
+					capitalIndexes.Add(i);
+				}
+			}
+
+			string scoredName = baseName;
+			foreach (int capitalIndex in capitalIndexes)
+			{
+				if (capitalIndex > 0)
+				{
+					scoredName = baseName.Insert(capitalIndex, "_");
+				}
+			}
+
+			return scoredName.ToLower();
 		}
 
 		public static string GetXMLTime(this DateTime Time)

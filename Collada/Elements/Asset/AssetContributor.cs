@@ -38,48 +38,48 @@ namespace ColladaSharp.Collada.Elements.Asset
 
 		public AssetContributor()
 		{
-			AuthorWebsite = "";
+			AuthorWebsite = "https://github.com/Nihlus/ColladaSharp";
 			AuthoringTool = "ColladaSharp v" + this.GetAssemblyVersion();
 			Comments = "Created by ColladaSharp";
 		}
 
 		public XElement GetXML()
 		{
-			XElement Element = new XElement("contributor");
+			XElement Element = ColladaXElementFactory.CreateElement("contributor");
 
 			if (!String.IsNullOrEmpty(Author))
 			{
-				Element.Add(new XElement("author", Author));
+				Element.Add(ColladaXElementFactory.CreateElement("author", Author));
 			}
 
 			if (!String.IsNullOrEmpty(AuthorEmail))
 			{
-				Element.Add(new XElement("author_email", AuthorEmail));
+				Element.Add(ColladaXElementFactory.CreateElement("author_email", AuthorEmail));
 			}
 
 			if (!String.IsNullOrEmpty(AuthorWebsite))
 			{
-				Element.Add(new XElement("author_website", AuthorWebsite));
+				Element.Add(ColladaXElementFactory.CreateElement("author_website", AuthorWebsite));
 			}
 
 			if (!String.IsNullOrEmpty(AuthoringTool))
 			{
-				Element.Add(new XElement("authoring_tool", AuthoringTool));
+				Element.Add(ColladaXElementFactory.CreateElement("authoring_tool", AuthoringTool));
 			}
 
 			if (!String.IsNullOrEmpty(Comments))
 			{
-				Element.Add(new XElement("comments", Comments));
+				Element.Add(ColladaXElementFactory.CreateElement("comments", Comments));
 			}
 
 			if (!String.IsNullOrEmpty(Copyright))
 			{
-				Element.Add(new XElement("copyright", Copyright));
+				Element.Add(ColladaXElementFactory.CreateElement("copyright", Copyright));
 			}
 
 			if (!String.IsNullOrEmpty(SourceData))
 			{
-				Element.Add(new XElement("source_data", SourceData));
+				Element.Add(ColladaXElementFactory.CreateElement("source_data", SourceData));
 			}
 
 			return Element;

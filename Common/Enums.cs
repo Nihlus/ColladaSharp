@@ -42,5 +42,29 @@ namespace ColladaSharp.Common
 		Absolute,
 		RelativeToGround
 	}
+
+	public enum LibraryType : byte
+	{
+		AnimationClips,
+		Animations,
+		ArticulatedSystems,
+		Cameras,
+		Controllers,
+		Effects,
+		ForceFields,
+		Formulas,
+		Geometries,
+		Images,
+		Joints,
+		KinematicsModels,
+		KinematicsScenes,
+		Lights,
+		Materials,
+		Nodes,
+		PhysicsMaterials,
+		PhysicsModels,
+		PhysicsScenes,
+		VisualScenes
+	}
 }
 

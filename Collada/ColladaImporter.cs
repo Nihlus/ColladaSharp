@@ -23,7 +23,7 @@ using System;
 
 namespace ColladaSharp.Collada
 {
-	internal static class ColladaImporter
+	public static class ColladaImporter
 	{
 		public static ColladaModel Import(string filePath)
 		{

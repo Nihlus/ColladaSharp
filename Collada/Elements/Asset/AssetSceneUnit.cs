@@ -38,7 +38,7 @@ namespace ColladaSharp.Collada.Elements.Asset
 
 		public XElement GetXML()
 		{
-			XElement Element = new XElement("unit");
+			XElement Element = ColladaXElementFactory.CreateElement("unit");
 			Element.SetAttributeValue("name", SceneUnit);
 			Element.SetAttributeValue("meter", MetersPerUnit);
 

@@ -22,6 +22,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ColladaSharp.Collada.Elements;
+using System.Xml.Linq;
+using ColladaSharp.Common;
 
 namespace ColladaSharp.Collada.Chunks
 {
@@ -29,12 +32,19 @@ namespace ColladaSharp.Collada.Chunks
 	/// Collada Library section. Used for storing elements that can be referenced
 	/// from other parts of the file.
 	/// </summary>
-	public sealed class Library<ColladaElement> : IEnumerable
+	public sealed class ColladaLibrary : IEnumerable
 	{
+		private readonly LibraryType Type;
+
 		/// <summary>
 		/// The list of values in this library.
 		/// </summary>
-		private readonly List<ColladaElement> Values = new List<ColladaElement>();
+		private readonly List<XElement> Elements = new List<XElement>();
+
+		public ColladaLibrary(LibraryType InType)
+		{
+			this.Type = InType;
+		}
 
 		/// <summary>
 		/// Gets the enumerator for this Library.
@@ -42,7 +52,19 @@ namespace ColladaSharp.Collada.Chunks
 		/// <returns>The enumerator.</returns>
 		public IEnumerator GetEnumerator()
 		{
-			return Values.GetEnumerator();
+			return Elements.GetEnumerator();
+		}
+
+		public XElement GetXML()
+		{
+			XElement libraryElement = ColladaXElementFactory.CreateElement("library_" + Type.ToFriendlyName());
+
+			foreach (XElement Element in Elements)
+			{
+				libraryElement.Add(Element);
+			}
+
+			return libraryElement;
 		}
 	}
 }

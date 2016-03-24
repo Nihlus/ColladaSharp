@@ -22,6 +22,9 @@
 using System;
 using ColladaSharp.Collada.Chunks;
 using System.Xml.Linq;
+using ColladaSharp.Collada.Elements.Asset;
+using ColladaSharp.Common;
+using ColladaSharp.Collada;
 
 namespace ColladaSharp.Tests
 {
@@ -29,12 +32,10 @@ namespace ColladaSharp.Tests
 	{
 		public static void Main(string[] args)
 		{
-			Asset asset = new Asset();
-			asset.Contributor.Author = "Jarl Gullberg";
-			asset.Contributor.AuthorEmail = "jarl.gullberg@gmail.com";
+			ColladaModel model = new ColladaModel();
+			model.Libraries.Add(new ColladaLibrary(LibraryType.AnimationClips));
 
-			XElement element = asset.GetXML();
-			Console.Write(element.ToString());
+			Console.Write(ColladaExporter.Export(model));
 			Console.ReadLine();
 		}
 	}

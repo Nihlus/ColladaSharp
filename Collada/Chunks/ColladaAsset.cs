@@ -20,12 +20,12 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
-using System.Xml;
 using ColladaSharp.Collada.Elements.Asset;
 using ColladaSharp.Common;
 using System.Collections.Generic;
 using ColladaSharp.Collada.Elements.Global;
 using System.Xml.Linq;
+using ColladaSharp.Collada.Elements;
 
 namespace ColladaSharp.Collada.Chunks
 {
@@ -34,7 +34,7 @@ namespace ColladaSharp.Collada.Chunks
 	/// All members are listed in the order that they must appear in the XML
 	/// document.
 	/// </summary>
-	public class Asset
+	public class ColladaAsset
 	{
 		public AssetContributor Contributor = new AssetContributor();
 		public AssetCoverage Coverage = new AssetCoverage();
@@ -42,6 +42,7 @@ namespace ColladaSharp.Collada.Chunks
 		public List<string> Keywords = new List<string>();
 		public DateTime Modified = DateTime.UtcNow;
 		public string Revision;
+		public string Subject;
 		public string Title;
 		public AssetSceneUnit SceneUnit = new AssetSceneUnit();
 		public Axis UpAxis = Axis.Y;
@@ -49,7 +50,7 @@ namespace ColladaSharp.Collada.Chunks
 
 		public XElement GetXML()
 		{
-			XElement Element = new XElement("asset");
+			XElement Element = ColladaXElementFactory.CreateElement("asset");
 			if (!Contributor.GetXML().IsEmpty)
 			{
 				Element.Add(Contributor.GetXML());
@@ -60,23 +61,46 @@ namespace ColladaSharp.Collada.Chunks
 				Element.Add(Coverage.GetXML());
 			}
 
-			Element.Add(new XElement("created", Created.GetXMLTime()));
+			Element.Add(ColladaXElementFactory.CreateElement("created", Created.GetXMLTime()));
 
 			if (Keywords.Count > 0)
 			{
-				Element.Add(new XElement("keywords", Keywords));
+				XElement keywordsElement = ColladaXElementFactory.CreateElement("keywords");
+				foreach (string keyword in Keywords)
+				{
+					if (!String.IsNullOrEmpty(keywordsElement.Value))
+					{
+						keywordsElement.Value += " " + keyword;
+					}
+					else
+					{
+						keywordsElement.Value = keyword;
+					}
+				}
+
+				Element.Add(keywordsElement);
 			}
 
-			Element.Add(new XElement("modifed", Modified.GetXMLTime()));
+			Element.Add(ColladaXElementFactory.CreateElement("modifed", Modified.GetXMLTime()));
 
 			if (!String.IsNullOrEmpty(Revision))
 			{
-				Element.Add(new XElement("revision", Revision));
+				Element.Add(ColladaXElementFactory.CreateElement("revision", Revision));
+			}
+
+			if (!String.IsNullOrEmpty(Subject))
+			{
+				Element.Add(ColladaXElementFactory.CreateElement("subject", Subject));
+			}
+
+			if (!String.IsNullOrEmpty(Title))
+			{
+				Element.Add(ColladaXElementFactory.CreateElement("title", Title));
 			}
 					
 			Element.Add(SceneUnit.GetXML());
 
-			Element.Add(new XElement("up_axis", UpAxis.ToFriendlyName()));
+			Element.Add(ColladaXElementFactory.CreateElement("up_axis", UpAxis.ToFriendlyName()));
 
 			if (!Extra.GetXML().IsEmpty)
 			{

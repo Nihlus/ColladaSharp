@@ -36,7 +36,7 @@ namespace ColladaSharp.Collada.Elements.Asset
 
 		public XElement GetXML()
 		{
-			XElement Element = new XElement("contributor");
+			XElement Element = ColladaXElementFactory.CreateElement("coverage");
 
 			foreach (AssetGeographicLocation Location in GeographicLocations)
 			{
@@ -52,15 +52,23 @@ namespace ColladaSharp.Collada.Elements.Asset
 		public float Longitude;
 		public float Latitude;
 		public float Altitude;
-		public AltitudeMode Mode = AltitudeMode.Absolute;
+		public AltitudeMode Mode = AltitudeMode.RelativeToGround;
+
+		public AssetGeographicLocation(float InLongitude, float InLatitude, float InAltitude, AltitudeMode InMode = AltitudeMode.RelativeToGround)
+		{
+			this.Longitude = InLongitude;
+			this.Latitude = InLatitude;
+			this.Altitude = InAltitude;
+			this.Mode = InMode;
+		}
 
 		public XElement GetXML()
 		{
-			XElement Element = new XElement("geographic_location");
-			Element.Add(new XElement("longitude", Longitude));
-			Element.Add(new XElement("latitude", Latitude));
+			XElement Element = ColladaXElementFactory.CreateElement("geographic_location");
+			Element.Add(ColladaXElementFactory.CreateElement("longitude", Longitude));
+			Element.Add(ColladaXElementFactory.CreateElement("latitude", Latitude));
 
-			XElement AltitudeElement = new XElement("altitude", Altitude);
+			XElement AltitudeElement = ColladaXElementFactory.CreateElement("altitude", Altitude);
 			AltitudeElement.SetAttributeValue("mode", Mode.ToFriendlyName());
 
 			Element.Add(AltitudeElement);

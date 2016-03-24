@@ -23,7 +23,7 @@ using System;
 
 namespace ColladaSharp.Collada.Elements.Global
 {
-	public class ColladaTechnique : ColladaElement
+	public class ColladaTechnique
 	{
 		public ColladaTechnique()
 		{

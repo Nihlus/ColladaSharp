@@ -44,10 +44,6 @@
     <Compile Include="Collada\ColladaImporter.cs" />
     <Compile Include="Collada\ColladaExporter.cs" />
     <Compile Include="Common\Constants.cs" />
-    <Compile Include="Collada\Chunks\Asset.cs" />
-    <Compile Include="Collada\Chunks\Scene.cs" />
-    <Compile Include="Collada\Chunks\Library.cs" />
-    <Compile Include="Collada\Elements\ColladaElement.cs" />
     <Compile Include="Collada\Elements\Asset\AssetContributor.cs" />
     <Compile Include="Collada\Elements\Asset\AssetTimestamp.cs" />
     <Compile Include="Common\Enums.cs" />
@@ -56,6 +52,10 @@
     <Compile Include="Collada\Elements\Global\ColladaExtra.cs" />
     <Compile Include="Collada\Elements\Global\ColladaTechnique.cs" />
     <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Collada\Elements\ColladaXElementFactory.cs" />
+    <Compile Include="Collada\Chunks\ColladaAsset.cs" />
+    <Compile Include="Collada\Chunks\ColladaLibrary.cs" />
+    <Compile Include="Collada\Chunks\ColladaScene.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

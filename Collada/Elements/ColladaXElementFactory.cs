@@ -1,5 +1,5 @@
 ﻿//
-//  Scene.cs
+//  ColladaXElementFactory.cs
 //
 //  Author:
 //       Jarl Gullberg <jarl.gullberg@gmail.com>
@@ -20,13 +20,17 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
+using System.Xml.Linq;
 
-namespace ColladaSharp.Collada.Chunks
+namespace ColladaSharp.Collada.Elements
 {
-	public class Scene
+	internal class ColladaXElementFactory
 	{
-		public Scene()
+		private static readonly XNamespace ColladaNamespace = XNamespace.Get(ColladaModel.XMLNS);
+
+		public static XElement CreateElement(string name, params object[] content)
 		{
+			return new XElement(ColladaNamespace + name, content);
 		}
 	}
 }

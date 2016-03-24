@@ -23,11 +23,16 @@ using System;
 
 namespace ColladaSharp.Collada
 {
-	internal static class ColladaExporter
+	public static class ColladaExporter
 	{
 		public static bool Export(ColladaModel model, string exportPath)
 		{
 			return false;
+		}
+
+		public static string Export(ColladaModel model)
+		{
+			return model.GetXML().ToString();
 		}
 	}
 }

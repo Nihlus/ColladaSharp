@@ -1,5 +1,5 @@
 ﻿//
-//  ColladaElement.cs
+//  Scene.cs
 //
 //  Author:
 //       Jarl Gullberg <jarl.gullberg@gmail.com>
@@ -20,17 +20,20 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
+using System.Xml.Linq;
+using ColladaSharp.Collada.Elements;
 
-namespace ColladaSharp.Collada.Elements
+namespace ColladaSharp.Collada.Chunks
 {
-	public class ColladaElement
+	public class ColladaScene
 	{
-		public string ID;
-		public string Name;
-		public string Type;
-
-		public ColladaElement()
+		public ColladaScene()
 		{
+		}
+
+		public XElement GetXML()
+		{
+			return ColladaXElementFactory.CreateElement("scene");
 		}
 	}
 }
