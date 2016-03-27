@@ -74,6 +74,11 @@ namespace ColladaSharp.Common.Model
 				throw new ArgumentException("The input values must contain exactly 3 elements.");
 			}
 		}
+
+		public List<float> ToList()
+		{
+			return new List<float>{ X, Y, Z };
+		}
 	}
 }
 

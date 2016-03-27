@@ -66,22 +66,28 @@ namespace ColladaSharp.Collada.Elements.Geometry.GeometryTypes
 
 		public void AddVertex(Vertex InVertex)
 		{
-
+			VertexPositions.AddElement(InVertex.ToList());
 		}
 
 		public void AddVertices(List<Vertex> InVertices)
 		{
-			
+			foreach (Vertex vertex in InVertices)
+			{
+				VertexPositions.AddElement(vertex.ToList());
+			}
 		}
 
 		public void RemoveVertex(int InIndex)
 		{
-
+			VertexPositions.RemoveElementAt(InIndex);
 		}
 
 		public void RemoveVertices(List<int> InIndices)
 		{
-
+			foreach (int Index in InIndices)
+			{
+				VertexPositions.RemoveElementAt(Index);
+			}
 		}
 
 		public void AddNormal(Normal InNormal)

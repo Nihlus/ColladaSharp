@@ -80,11 +80,23 @@ namespace ColladaSharp.Collada.Elements.DataFlow.Sources
 			}
 		}
 
-		public void AddElement(List<float> InValues)
-		{
-			if (InValues.Count == Stride)
+		public List<float> GetElementAt(int Index)
+		{			
+			if (Index <= ((Values.Count / Stride) - 1))
 			{
-				this.Values.AddRange(InValues);
+				return Values.GetRange(Index, Stride);
+			}
+			else
+			{
+				throw new IndexOutOfRangeException("The index was out of range. Index must be aligned to the stride of the elements in the source.");
+			}
+		}
+
+		public void AddElement(List<float> InValue)
+		{
+			if (InValue.Count == Stride)
+			{
+				this.Values.AddRange(InValue);
 			}
 			else
 			{
@@ -92,15 +104,31 @@ namespace ColladaSharp.Collada.Elements.DataFlow.Sources
 			}
 		}
 
-		public List<float> GetElementAt(int Index)
-		{			
-			if (Index <= (Values.Count / Stride))
+		public void AddRange(List<List<float>> InValues)
+		{
+			foreach (List<float> Value in InValues)
 			{
-				return Values.GetRange(Index, Stride);
+				AddElement(Value);
+			}
+		}
+
+		public void RemoveElementAt(int Index)
+		{
+			if (Index <= ((Values.Count / Stride) - 1))
+			{
+				Values.RemoveRange(Index, Stride);
 			}
 			else
 			{
 				throw new IndexOutOfRangeException("The index was out of range. Index must be aligned to the stride of the elements in the source.");
+			}
+		}
+
+		public void RemoveElementsInRange(int Index, int Count)
+		{
+			for (int i = 0; i < Count; ++i)
+			{
+				RemoveElementAt(Index);
 			}
 		}
 
