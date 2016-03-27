@@ -20,13 +20,20 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
+using System.Xml.Linq;
+using ColladaSharp.Common.Interfaces;
 
 namespace ColladaSharp.Collada.Elements.Global
 {
-	public class ColladaTechnique
+	public class ColladaTechnique : IColladaSerializable
 	{
 		public ColladaTechnique()
 		{
+		}
+
+		public XElement GetXML()
+		{
+			return null;
 		}
 	}
 }

@@ -25,6 +25,8 @@ using System.Collections.Generic;
 using ColladaSharp.Collada.Elements;
 using System.Xml.Linq;
 using ColladaSharp.Common;
+using ColladaSharp.Common.Interfaces;
+using ColladaSharp.Collada.Elements.Global;
 
 namespace ColladaSharp.Collada.Chunks
 {
@@ -32,19 +34,19 @@ namespace ColladaSharp.Collada.Chunks
 	/// Collada Library section. Used for storing elements that can be referenced
 	/// from other parts of the file.
 	/// </summary>
-	public sealed class ColladaLibrary : IEnumerable
+	public abstract class ColladaLibrary : IEnumerable, IColladaSerializable
 	{
-		private readonly LibraryType Type;
+		protected LibraryType Type;
+		public string ID;
+		public string Name;
+
+		public ColladaAssetData AssetData;
+		public readonly List<ColladaExtra> ExtraData = new List<ColladaExtra>();
 
 		/// <summary>
 		/// The list of values in this library.
 		/// </summary>
-		private readonly List<XElement> Elements = new List<XElement>();
-
-		public ColladaLibrary(LibraryType InType)
-		{
-			this.Type = InType;
-		}
+		private readonly List<ColladaElement> Elements = new List<ColladaElement>();
 
 		/// <summary>
 		/// Gets the enumerator for this Library.
@@ -55,16 +57,9 @@ namespace ColladaSharp.Collada.Chunks
 			return Elements.GetEnumerator();
 		}
 
-		public XElement GetXML()
+		public virtual XElement GetXML()
 		{
-			XElement libraryElement = ColladaXElementFactory.CreateElement("library_" + Type.ToFriendlyName());
-
-			foreach (XElement Element in Elements)
-			{
-				libraryElement.Add(Element);
-			}
-
-			return libraryElement;
+			throw new NotImplementedException();
 		}
 	}
 }

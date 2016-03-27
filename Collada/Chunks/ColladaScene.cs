@@ -22,10 +22,11 @@
 using System;
 using System.Xml.Linq;
 using ColladaSharp.Collada.Elements;
+using ColladaSharp.Common.Interfaces;
 
 namespace ColladaSharp.Collada.Chunks
 {
-	public class ColladaScene
+	public class ColladaScene : IColladaSerializable
 	{
 		public ColladaScene()
 		{

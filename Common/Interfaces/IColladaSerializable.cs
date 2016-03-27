@@ -1,5 +1,5 @@
 ﻿//
-//  Extra.cs
+//  IColladaSerializable.cs
 //
 //  Author:
 //       Jarl Gullberg <jarl.gullberg@gmail.com>
@@ -20,27 +20,13 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
-using ColladaSharp.Collada.Chunks;
-using System.Collections.Generic;
 using System.Xml.Linq;
-using ColladaSharp.Common.Interfaces;
 
-namespace ColladaSharp.Collada.Elements.Global
+namespace ColladaSharp.Common.Interfaces
 {
-	public class ColladaExtra : IColladaSerializable
+	public interface IColladaSerializable
 	{
-		public List<Chunks.ColladaAssetData> Assets = new List<Chunks.ColladaAssetData>();
-		public List<ColladaTechnique> Techniques = new List<ColladaTechnique>();
-
-		public ColladaExtra()
-		{
-		}
-
-		// TODO: Implement
-		public XElement GetXML()
-		{
-			return ColladaXElementFactory.CreateElement("extra");
-		}
+		XElement GetXML();
 	}
 }
 

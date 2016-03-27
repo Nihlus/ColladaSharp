@@ -36,37 +36,9 @@ namespace ColladaSharp.Collada
 		public static readonly string XMLNS = "https://www.khronos.org/files/collada_schema_1_5";
 		public static readonly string XMLBase = "https://www.w3.org/TR/xmlbase/";
 
-		public ColladaAsset Asset = new ColladaAsset();
+		public ColladaAssetData AssetData = new ColladaAssetData();
 		public List<ColladaLibrary> Libraries = new List<ColladaLibrary>();
 		public ColladaScene Scene = new ColladaScene();
-
-		public XDocument GetXML()
-		{			
-			XElement RootElement = ColladaXElementFactory.CreateElement("COLLADA");
-			RootElement.SetAttributeValue("version", ColladaVersion);
-			RootElement.SetAttributeValue("base", XMLBase);
-
-			if (!Asset.GetXML().IsEmpty)
-			{
-				RootElement.Add(Asset.GetXML());
-			}
-
-			foreach (ColladaLibrary Library in Libraries)
-			{
-				if (!Library.GetXML().IsEmpty)
-				{
-					RootElement.Add(Library.GetXML());
-				}
-			}
-
-			if (!Scene.GetXML().IsEmpty)
-			{
-				RootElement.Add(Scene.GetXML());
-			}
-
-			XDocument document = new XDocument(RootElement);
-			return document;
-		}
 	}
 }
 

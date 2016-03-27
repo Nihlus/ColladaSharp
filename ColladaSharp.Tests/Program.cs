@@ -25,6 +25,7 @@ using System.Xml.Linq;
 using ColladaSharp.Collada.Elements.Asset;
 using ColladaSharp.Common;
 using ColladaSharp.Collada;
+using ColladaSharp.Collada.Elements.Geometry;
 
 namespace ColladaSharp.Tests
 {
@@ -33,7 +34,7 @@ namespace ColladaSharp.Tests
 		public static void Main(string[] args)
 		{
 			ColladaModel model = new ColladaModel();
-			model.Libraries.Add(new ColladaLibrary(LibraryType.AnimationClips));
+			model.Libraries.Add(new ColladaLibraryGeometries());
 
 			Console.Write(ColladaExporter.Export(model));
 			Console.ReadLine();

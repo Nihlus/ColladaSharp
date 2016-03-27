@@ -45,7 +45,6 @@
     <Compile Include="Collada\ColladaExporter.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Collada\Elements\Asset\AssetContributor.cs" />
-    <Compile Include="Collada\Elements\Asset\AssetTimestamp.cs" />
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Collada\Elements\Asset\AssetCoverage.cs" />
     <Compile Include="Collada\Elements\Asset\AssetSceneUnit.cs" />
@@ -53,9 +52,30 @@
     <Compile Include="Collada\Elements\Global\ColladaTechnique.cs" />
     <Compile Include="Common\Extensions.cs" />
     <Compile Include="Collada\Elements\ColladaXElementFactory.cs" />
-    <Compile Include="Collada\Chunks\ColladaAsset.cs" />
     <Compile Include="Collada\Chunks\ColladaLibrary.cs" />
     <Compile Include="Collada\Chunks\ColladaScene.cs" />
+    <Compile Include="Collada\Elements\Global\ColladaElement.cs" />
+    <Compile Include="Common\Interfaces\IColladaSerializable.cs" />
+    <Compile Include="Collada\Elements\Geometry\ColladaLibraryGeometries.cs" />
+    <Compile Include="Collada\Elements\Geometry\ColladaGeometry.cs" />
+    <Compile Include="Collada\Chunks\ColladaAssetData.cs" />
+    <Compile Include="Collada\Elements\Geometry\GeometryTypes\ColladaGeometryType.cs" />
+    <Compile Include="Collada\Elements\Geometry\GeometryTypes\ColladaConvexMesh.cs" />
+    <Compile Include="Collada\Elements\Geometry\GeometryTypes\ColladaMesh.cs" />
+    <Compile Include="Collada\Elements\Geometry\GeometryTypes\ColladaSpline.cs" />
+    <Compile Include="Collada\Elements\Geometry\GeometryTypes\ColladaBrep.cs" />
+    <Compile Include="Collada\Elements\DataFlow\ColladaSource.cs" />
+    <Compile Include="Common\Model\Polygon.cs" />
+    <Compile Include="Collada\Elements\DataFlow\Sources\ColladaBooleanSource.cs" />
+    <Compile Include="Collada\Elements\DataFlow\Sources\ColladaFloatSource.cs" />
+    <Compile Include="Collada\Elements\DataFlow\Sources\ColladaIDREFSource.cs" />
+    <Compile Include="Collada\Elements\DataFlow\Sources\ColladaIntSource.cs" />
+    <Compile Include="Collada\Elements\DataFlow\Sources\ColladaNameSource.cs" />
+    <Compile Include="Collada\Elements\DataFlow\Sources\ColladaSIDREFSource.cs" />
+    <Compile Include="Collada\Elements\DataFlow\Sources\ColladaTokenSource.cs" />
+    <Compile Include="Common\Model\Vertex.cs" />
+    <Compile Include="Common\Model\Normal.cs" />
+    <Compile Include="Collada\Elements\DataFlow\ColladaAccessor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -65,5 +85,12 @@
     <Folder Include="Collada\Elements\" />
     <Folder Include="Collada\Elements\Asset\" />
     <Folder Include="Collada\Elements\Global\" />
+    <Folder Include="Common\Interfaces\" />
+    <Folder Include="Collada\Elements\Geometry\" />
+    <Folder Include="Collada\Elements\Geometry\GeometryTypes\" />
+    <Folder Include="Collada\Elements\DataFlow\" />
+    <Folder Include="Collada\Elements\Geometry\GeometryPrimitives\" />
+    <Folder Include="Common\Model\" />
+    <Folder Include="Collada\Elements\DataFlow\Sources\" />
   </ItemGroup>
 </Project>

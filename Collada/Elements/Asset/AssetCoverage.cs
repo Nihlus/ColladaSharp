@@ -23,10 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using ColladaSharp.Common;
+using ColladaSharp.Common.Interfaces;
 
 namespace ColladaSharp.Collada.Elements.Asset
 {
-	public class AssetCoverage
+	public class AssetCoverage : IColladaSerializable
 	{
 		public List<AssetGeographicLocation> GeographicLocations = new List<AssetGeographicLocation>();
 

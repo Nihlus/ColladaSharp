@@ -1,5 +1,5 @@
 ﻿//
-//  AssetTimestamp.cs
+//  ColladaTokenSource.cs
 //
 //  Author:
 //       Jarl Gullberg <jarl.gullberg@gmail.com>
@@ -21,14 +21,11 @@
 //
 using System;
 
-namespace ColladaSharp.Collada.Elements.Asset
+namespace ColladaSharp.Collada.Elements.DataFlow.Sources
 {
-	public class AssetTimestamp
+	public class ColladaTokenSource
 	{
-		public DateTime Created;
-		public DateTime Modified;
-
-		public AssetTimestamp()
+		public ColladaTokenSource()
 		{
 		}
 	}

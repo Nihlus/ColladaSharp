@@ -1,5 +1,5 @@
 ﻿//
-//  Extra.cs
+//  ColladaSource.cs
 //
 //  Author:
 //       Jarl Gullberg <jarl.gullberg@gmail.com>
@@ -21,26 +21,25 @@
 //
 using System;
 using ColladaSharp.Collada.Chunks;
-using System.Collections.Generic;
 using System.Xml.Linq;
-using ColladaSharp.Common.Interfaces;
 
-namespace ColladaSharp.Collada.Elements.Global
+namespace ColladaSharp.Collada.Elements.DataFlow
 {
-	public class ColladaExtra : IColladaSerializable
+	public abstract class ColladaSource
 	{
-		public List<Chunks.ColladaAssetData> Assets = new List<Chunks.ColladaAssetData>();
-		public List<ColladaTechnique> Techniques = new List<ColladaTechnique>();
+		public string SourceIDName
+		{
+			get;
+			set;
+		}
 
-		public ColladaExtra()
+		public ColladaAssetData AssetData = new ColladaAssetData();
+
+		public ColladaSource()
 		{
 		}
 
-		// TODO: Implement
-		public XElement GetXML()
-		{
-			return ColladaXElementFactory.CreateElement("extra");
-		}
+		public abstract XElement GetXML(string ParentName);
 	}
 }
 

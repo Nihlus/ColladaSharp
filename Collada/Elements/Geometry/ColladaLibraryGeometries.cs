@@ -1,5 +1,5 @@
 ﻿//
-//  Extra.cs
+//  ColladaLibraryGeometries.cs
 //
 //  Author:
 //       Jarl Gullberg <jarl.gullberg@gmail.com>
@@ -23,23 +23,22 @@ using System;
 using ColladaSharp.Collada.Chunks;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using ColladaSharp.Common.Interfaces;
+using ColladaSharp.Common;
 
-namespace ColladaSharp.Collada.Elements.Global
+namespace ColladaSharp.Collada.Elements.Geometry
 {
-	public class ColladaExtra : IColladaSerializable
+	public class ColladaLibraryGeometries : ColladaLibrary
 	{
-		public List<Chunks.ColladaAssetData> Assets = new List<Chunks.ColladaAssetData>();
-		public List<ColladaTechnique> Techniques = new List<ColladaTechnique>();
+		public readonly List<ColladaGeometry> Geometries = new List<ColladaGeometry>();
 
-		public ColladaExtra()
+		public ColladaLibraryGeometries()
 		{
+			this.Type = LibraryType.Geometries;
 		}
 
-		// TODO: Implement
-		public XElement GetXML()
+		public override XElement GetXML()
 		{
-			return ColladaXElementFactory.CreateElement("extra");
+			return null;
 		}
 	}
 }

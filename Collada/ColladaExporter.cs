@@ -20,19 +20,45 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
+using System.Xml.Linq;
+using ColladaSharp.Collada.Elements;
+using ColladaSharp.Collada.Chunks;
 
 namespace ColladaSharp.Collada
 {
 	public static class ColladaExporter
 	{
-		public static bool Export(ColladaModel model, string exportPath)
+		public static bool Export(ColladaModel Model, string exportPath)
 		{
 			return false;
 		}
 
-		public static string Export(ColladaModel model)
+		public static XDocument Export(ColladaModel Model)
 		{
-			return model.GetXML().ToString();
+			XElement RootElement = ColladaXElementFactory.CreateElement("COLLADA");
+			RootElement.SetAttributeValue("version", Model.ColladaVersion);
+			RootElement.SetAttributeValue("base", ColladaModel.XMLBase);
+
+			if (!Model.AssetData.GetXML().IsEmpty)
+			{
+				RootElement.Add(Model.AssetData.GetXML());
+			}
+
+			foreach (ColladaLibrary Library in Model.Libraries)
+			{
+				if (!Library.GetXML().IsEmpty)
+				{
+					RootElement.Add(Library.GetXML());
+				}
+			}
+
+			if (!Model.Scene.GetXML().IsEmpty)
+			{
+				RootElement.Add(Model.Scene.GetXML());
+			}
+
+			XDocument document = new XDocument(RootElement);
+			return document;
 		}
 	}
 }

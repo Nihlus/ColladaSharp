@@ -22,10 +22,11 @@
 using System;
 using ColladaSharp.Common;
 using System.Xml.Linq;
+using ColladaSharp.Common.Interfaces;
 
 namespace ColladaSharp.Collada.Elements.Asset
 {
-	public class AssetSceneUnit
+	public class AssetSceneUnit : IColladaSerializable
 	{
 		public string SceneUnit;
 		public double MetersPerUnit;

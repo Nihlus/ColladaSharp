@@ -1,5 +1,5 @@
 ﻿//
-//  Extra.cs
+//  Polygon.cs
 //
 //  Author:
 //       Jarl Gullberg <jarl.gullberg@gmail.com>
@@ -20,26 +20,23 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
-using ColladaSharp.Collada.Chunks;
 using System.Collections.Generic;
-using System.Xml.Linq;
-using ColladaSharp.Common.Interfaces;
 
-namespace ColladaSharp.Collada.Elements.Global
+namespace ColladaSharp.Common.Model
 {
-	public class ColladaExtra : IColladaSerializable
+	public class Polygon
 	{
-		public List<Chunks.ColladaAssetData> Assets = new List<Chunks.ColladaAssetData>();
-		public List<ColladaTechnique> Techniques = new List<ColladaTechnique>();
+		public List<int> VertexIndices;
+		public int FaceNormalIndex;
 
-		public ColladaExtra()
+		public Polygon()
 		{
 		}
 
-		// TODO: Implement
-		public XElement GetXML()
+		public Polygon(List<int> InVertexIndices, int InFaceNormalIndex)
 		{
-			return ColladaXElementFactory.CreateElement("extra");
+			this.VertexIndices = InVertexIndices;
+			this.FaceNormalIndex = InFaceNormalIndex; 
 		}
 	}
 }

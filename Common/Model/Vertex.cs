@@ -1,5 +1,5 @@
 ﻿//
-//  Extra.cs
+//  Vertex.cs
 //
 //  Author:
 //       Jarl Gullberg <jarl.gullberg@gmail.com>
@@ -20,26 +20,59 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
-using ColladaSharp.Collada.Chunks;
 using System.Collections.Generic;
-using System.Xml.Linq;
-using ColladaSharp.Common.Interfaces;
 
-namespace ColladaSharp.Collada.Elements.Global
+namespace ColladaSharp.Common.Model
 {
-	public class ColladaExtra : IColladaSerializable
+	public class Vertex
 	{
-		public List<Chunks.ColladaAssetData> Assets = new List<Chunks.ColladaAssetData>();
-		public List<ColladaTechnique> Techniques = new List<ColladaTechnique>();
+		public float X
+		{
+			get;
+			set;
+		}
 
-		public ColladaExtra()
+		public float Y
+		{
+			get;
+			set;
+		}
+
+		public float Z
+		{
+			get;
+			set;
+		}
+
+		public Vertex()
 		{
 		}
 
-		// TODO: Implement
-		public XElement GetXML()
+		public Vertex(float XYZ)
+			: this(XYZ, XYZ, XYZ)
 		{
-			return ColladaXElementFactory.CreateElement("extra");
+
+		}
+
+		public Vertex(float X, float Y, float Z)
+		{
+			this.X = X;
+			this.Y = Y;
+			this.Z = Z;
+		}
+
+		public Vertex(List<float> Values)
+		{
+			if (Values.Count == 3)
+			{
+				this.X = Values[0];
+				this.Y = Values[1];
+				this.Z = Values[2];
+			}
+			else
+			{
+				throw new ArgumentException("The input values must contain exactly 3 elements.");
+			}
 		}
 	}
 }

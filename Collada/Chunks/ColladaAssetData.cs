@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using ColladaSharp.Collada.Elements.Global;
 using System.Xml.Linq;
 using ColladaSharp.Collada.Elements;
+using ColladaSharp.Common.Interfaces;
 
 namespace ColladaSharp.Collada.Chunks
 {
@@ -34,7 +35,7 @@ namespace ColladaSharp.Collada.Chunks
 	/// All members are listed in the order that they must appear in the XML
 	/// document.
 	/// </summary>
-	public class ColladaAsset
+	public class ColladaAssetData : IColladaSerializable
 	{
 		public AssetContributor Contributor = new AssetContributor();
 		public AssetCoverage Coverage = new AssetCoverage();

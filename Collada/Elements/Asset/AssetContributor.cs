@@ -23,10 +23,11 @@ using System;
 using System.Xml.Linq;
 using System.Reflection;
 using ColladaSharp.Common;
+using ColladaSharp.Common.Interfaces;
 
 namespace ColladaSharp.Collada.Elements.Asset
 {
-	public sealed class AssetContributor
+	public sealed class AssetContributor : IColladaSerializable
 	{
 		public string Author;
 		public string AuthorEmail;
