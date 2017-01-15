@@ -31,16 +31,18 @@ namespace ColladaSharp.Collada.Elements.DataFlow
 		private string SourceID;
 		private int ArrayAccessorCount;
 		private int Stride;
-		private List<string> ParameterNames;
-		private string DataType;
+		private List<KeyValuePair<string, string>> Parameters = new List<KeyValuePair<string, string>>();
 
-		public ColladaAccessor(string InSourceID, int InArrayAccessorCount, int InStride, List<string> InParameterNames, string InDataType)
+		public ColladaAccessor(string InSourceID, int InArrayAccessorCount, int InStride)
 		{
 			this.SourceID = InSourceID;
 			this.ArrayAccessorCount = InArrayAccessorCount;
 			this.Stride = InStride;
-			this.ParameterNames = InParameterNames;
-			this.DataType = InDataType;
+		}
+
+		public void AddParameter(string ParameterName, string ParameterType)
+		{
+			this.Parameters.Add(new KeyValuePair<string, string>(ParameterName, ParameterType));
 		}
 
 		public XElement GetXML()
@@ -51,11 +53,11 @@ namespace ColladaSharp.Collada.Elements.DataFlow
 			AccessorElement.SetAttributeValue("count", ArrayAccessorCount);
 			AccessorElement.SetAttributeValue("stride", Stride);
 
-			foreach (string Parameter in ParameterNames)
+			foreach (KeyValuePair<string, string> Parameter in Parameters)
 			{
 				XElement ParameterElement = ColladaXElementFactory.CreateElement("param");
-				ParameterElement.SetAttributeValue("name", Parameter);
-				ParameterElement.SetAttributeValue("type", DataType);
+				ParameterElement.SetAttributeValue("name", Parameter.Key);
+				ParameterElement.SetAttributeValue("type", Parameter.Value);
 
 				AccessorElement.Add(ParameterElement);
 			}

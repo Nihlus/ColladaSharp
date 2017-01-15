@@ -24,6 +24,8 @@ using System.Xml.Linq;
 using ColladaSharp.Collada.Chunks;
 using System.Collections.Generic;
 using ColladaSharp.Collada.Elements;
+using ColladaSharp.Common.Model;
+using ColladaSharp.Collada.Elements.Geometry.GeometryTypes;
 
 namespace ColladaSharp.Collada
 {
@@ -39,6 +41,11 @@ namespace ColladaSharp.Collada
 		public ColladaAssetData AssetData = new ColladaAssetData();
 		public List<ColladaLibrary> Libraries = new List<ColladaLibrary>();
 		public ColladaScene Scene = new ColladaScene();
+
+		public ColladaMesh AddMesh(string name)
+		{
+			return new ColladaMesh(name);
+		}
 	}
 }
 

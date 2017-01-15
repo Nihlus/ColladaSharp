@@ -19,21 +19,42 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-using System;
 using System.Xml.Linq;
 using ColladaSharp.Common.Interfaces;
+using ColladaSharp.Collada.Elements.DataFlow;
 
 namespace ColladaSharp.Collada.Elements.Global
 {
 	public class ColladaTechnique : IColladaSerializable
 	{
-		public ColladaTechnique()
+		private string TechniqueName;
+		private ColladaAccessor Accessor;
+
+		public ColladaTechnique(string InTechniqueName)
 		{
+			this.TechniqueName = InTechniqueName;
+		}
+
+		public void SetAccessor(ColladaAccessor InAccessor)
+		{
+			this.Accessor = InAccessor;
 		}
 
 		public XElement GetXML()
 		{
-			return null;
+			XElement Element = ColladaXElementFactory.CreateElement("technique_" + TechniqueName);
+
+			if (Accessor != null)
+			{
+				Element.Add(Accessor.GetXML());
+			}
+
+			return Element;
+		}
+
+		public static ColladaTechnique GetCommonTechnique()
+		{
+			return new ColladaTechnique("common");
 		}
 	}
 }

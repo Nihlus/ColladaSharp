@@ -25,10 +25,12 @@ using System.Collections.Generic;
 using ColladaSharp.Collada.Elements.DataFlow;
 using ColladaSharp.Common.Model;
 using ColladaSharp.Collada.Elements.DataFlow.Sources;
+using ColladaSharp.Common.Interfaces;
+using System.Xml.Linq;
 
 namespace ColladaSharp.Collada.Elements.Geometry.GeometryTypes
 {
-	public class ColladaMesh : ColladaGeometryType
+	public class ColladaMesh : ColladaGeometryType, IColladaSerializable
 	{
 		public string ID
 		{
@@ -45,18 +47,21 @@ namespace ColladaSharp.Collada.Elements.Geometry.GeometryTypes
 		}
 
 		// Source (at least 1)
-		// Vertices (1)
 		// Primitives (0 or more)
 
 		public readonly ColladaExtra ExtraData = new ColladaExtra();
-		private readonly ColladaFloatSource VertexPositions = new ColladaFloatSource("positions", 3, new List<string>{ "X", "Y", "Z" });
-		private readonly ColladaFloatSource FaceNormals = new ColladaFloatSource("normals", 3, new List<string>{ "X", "Y", "Z" });
-		private readonly ColladaFloatSource VertexColours = new ColladaFloatSource("colors", "Col", 3, new List<string>{ "R", "G", "B" });
+		private readonly ColladaFloatSource VertexPositions;
+		private readonly ColladaFloatSource FaceNormals;
+		private readonly ColladaFloatSource VertexColours;
 		//private readonly ColladaFloatSource VertexTextureCoordinates = new ColladaFloatSource(2, new List<string>{"U", "V"};
 
 		public ColladaMesh(string Name)
 		{
 			this.Name = Name;
+
+			this.VertexPositions = new ColladaFloatSource(GetMeshID(), "positions", "", 3, new List<string>{ "X", "Y", "Z" });
+			this.FaceNormals = new ColladaFloatSource(GetMeshID(), "normals", "", 3, new List<string>{ "X", "Y", "Z" });
+			this.VertexColours = new ColladaFloatSource(GetMeshID(), "colors", "Col", 3, new List<string>{ "R", "G", "B" });
 		}
 
 		public string GetMeshID()
@@ -133,6 +138,27 @@ namespace ColladaSharp.Collada.Elements.Geometry.GeometryTypes
 		public void AddTriangleStrips()
 		{
 
+		}
+
+		public XElement GetXML()
+		{
+			XElement GeometryElement = ColladaXElementFactory.CreateElement("geometry");
+			XElement MeshElement = ColladaXElementFactory.CreateElement("mesh");
+
+			GeometryElement.Add(MeshElement);
+
+			MeshElement.Add(VertexPositions.GetXML());
+			MeshElement.Add(FaceNormals.GetXML());
+			MeshElement.Add(VertexColours.GetXML());
+
+			XElement VertexSourceElement = ColladaXElementFactory.CreateElement("vertices");
+			VertexSourceElement.SetAttributeValue("id", GetMeshID() + "-vertices");
+			XElement VertexSourceInputElement = ColladaXElementFactory.CreateElement("input");
+			VertexSourceInputElement.SetAttributeValue("semantic", "POSITION");
+			VertexSourceInputElement.SetAttributeValue("source", "#" + VertexPositions.GetElementID());
+			MeshElement.Add(VertexSourceElement);
+
+			return GeometryElement;
 		}
 	}
 }

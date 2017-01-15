@@ -22,12 +22,25 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using ColladaSharp.Collada.Elements.Global;
 
 namespace ColladaSharp.Collada.Elements.DataFlow.Sources
 {
 	public class ColladaFloatSource : ColladaSource
 	{
-		public string Name
+		public string ParentName
+		{
+			get;
+			private set;
+		}
+
+		public string SourceTypeName
+		{
+			get;
+			private set;
+		}
+
+		public string SourceName
 		{
 			get;
 			private set;
@@ -38,28 +51,29 @@ namespace ColladaSharp.Collada.Elements.DataFlow.Sources
 		private readonly int Stride;
 		private readonly List<string> ParameterNames;
 
-		public ColladaFloatSource(string InSourceName, string InSourceIDName, int InStride, List<string> InParameterNames)
-			: this(InSourceIDName, InStride, InParameterNames)
+		public ColladaFloatSource(string InParentName, string InSourceTypeName, string InSourceName, int InStride, List<string> InParameterNames)
 		{
-			if (String.IsNullOrEmpty(InSourceName))
+			if (!String.IsNullOrEmpty(InParentName))
 			{
-				this.Name = InSourceName;
+				this.ParentName = InParentName;
 			}
 			else
 			{
 				throw new ArgumentException("The input name must be a valid nonzero-length string.");
 			}
-		}
 
-		public ColladaFloatSource(string InSourceIDName, int InStride, List<string> InParameterNames)
-		{
-			if (String.IsNullOrEmpty(InSourceIDName))
+			if (!String.IsNullOrEmpty(InSourceTypeName))
 			{
-				this.SourceIDName = InSourceIDName;
+				this.SourceTypeName = InSourceTypeName;
 			}
 			else
 			{
 				throw new ArgumentException("The input sub ID must be a valid nonzero-length string.");
+			}
+
+			if (!String.IsNullOrEmpty(InSourceName))
+			{
+				this.SourceName = InSourceName;
 			}
 
 			if (InStride > 0)
@@ -132,44 +146,39 @@ namespace ColladaSharp.Collada.Elements.DataFlow.Sources
 			}
 		}
 
-		public override XElement GetXML(string ParentName)
+		public override XElement GetXML()
 		{
 			XElement Element = ColladaXElementFactory.CreateElement("source");
 
-			string sourceElementID;
-			if (!String.IsNullOrEmpty(Name))
-			{
-				sourceElementID = String.Format("{0}-{1}", ParentName, SourceIDName);
-			}
-			else
-			{
-				sourceElementID = String.Format("{0}-{1}-{2}", ParentName, SourceIDName, Name);
-				Element.SetAttributeValue("name", Name);
-			}
+			Element.SetAttributeValue("id", GetElementID());
 
-			Element.SetAttributeValue("id", sourceElementID);
-
-			Element.Add(CreateArrayElement(ParentName));
-			Element.Add(CreateAccessorTechniqueElement(ParentName));
+			Element.Add(CreateArrayElement());
+			Element.Add(CreateAccessorTechniqueElement());
 
 			return Element;
 		}
 
-		private XElement CreateArrayElement(string ParentName)
+		public string GetElementID()
 		{
-			XElement ArrayElement = ColladaXElementFactory.CreateElement("float_array");
-
-			string arrayElementID;
-			if (!String.IsNullOrEmpty(Name))
+			string sourceElementID;
+			if (!String.IsNullOrEmpty(SourceName))
 			{
-				arrayElementID = String.Format("{0}-{1}-array", ParentName, SourceIDName);
+				sourceElementID = String.Format("{0}-{1}-{2}", ParentName, SourceTypeName, SourceName);
 			}
 			else
 			{
-				arrayElementID = String.Format("{0}-{1}-{2}-array", ParentName, SourceIDName, Name);
+				sourceElementID = String.Format("{0}-{1}", ParentName, SourceTypeName);
 			}
 
-			ArrayElement.SetAttributeValue("id", arrayElementID);
+			return sourceElementID;
+		}
+
+		private XElement CreateArrayElement()
+		{
+			XElement ArrayElement = ColladaXElementFactory.CreateElement("float_array");
+
+
+			ArrayElement.SetAttributeValue("id", GetElementID());
 			ArrayElement.SetAttributeValue("count", Values.Count);
 
 			// Add all of the elements in the array
@@ -188,24 +197,21 @@ namespace ColladaSharp.Collada.Elements.DataFlow.Sources
 			return ArrayElement;
 		}
 
-		private XElement CreateAccessorTechniqueElement(string ParentName)
+		private XElement CreateAccessorTechniqueElement()
 		{
-			XElement TechniqueElement = ColladaXElementFactory.CreateElement("technique_common");
+			ColladaTechnique Technique = ColladaTechnique.GetCommonTechnique();
 
-			string accessorSourceID;
-			if (!String.IsNullOrEmpty(Name))
+			string accessorSourceID = String.Format("#{0}-array", GetElementID());
+
+
+			ColladaAccessor SourceAccessor = new ColladaAccessor(accessorSourceID, Values.Count / Stride, Stride);
+			foreach (string parameterName in ParameterNames)
 			{
-				accessorSourceID = String.Format("#{0}-{1}-array", ParentName, SourceIDName);
-			}
-			else
-			{
-				accessorSourceID = String.Format("#{0}-{1}-{2}-array", ParentName, SourceIDName, Name);
+				SourceAccessor.AddParameter(parameterName, "float");
 			}
 
-			ColladaAccessor SourceAccessor = new ColladaAccessor(accessorSourceID, Values.Count / Stride, Stride, ParameterNames, "float");
-			TechniqueElement.Add(SourceAccessor.GetXML());
-
-			return TechniqueElement;
+			Technique.SetAccessor(SourceAccessor);
+			return Technique.GetXML();
 		}
 	}
 }

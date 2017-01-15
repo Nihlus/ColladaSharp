@@ -43,8 +43,11 @@ namespace ColladaSharp.Common.Model
 			set;
 		}
 
-		public Normal()
+		public Normal(float X, float Y, float Z)
 		{
+			this.X = X;
+			this.Y = Y;
+			this.Z = Z;
 		}
 	}
 }

@@ -27,19 +27,11 @@ namespace ColladaSharp.Collada.Elements.DataFlow
 {
 	public abstract class ColladaSource
 	{
-		public string SourceIDName
-		{
-			get;
-			set;
-		}
-
-		public ColladaAssetData AssetData = new ColladaAssetData();
-
 		public ColladaSource()
 		{
 		}
 
-		public abstract XElement GetXML(string ParentName);
+		public abstract XElement GetXML();
 	}
 }
 

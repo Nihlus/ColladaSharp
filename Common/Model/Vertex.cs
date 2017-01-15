@@ -44,6 +44,12 @@ namespace ColladaSharp.Common.Model
 			set;
 		}
 
+		public Normal VertexNormal
+		{
+			get;
+			set;
+		}
+
 		public Vertex()
 		{
 		}
